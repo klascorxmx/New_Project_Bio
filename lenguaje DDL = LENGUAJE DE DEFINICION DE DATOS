@@ -1,0 +1,95 @@
+lenguaje DDL = LENGUAJE DE DEFINICION DE DATOS
+	-CREATE
+	-DROP
+	-ALTER
+ Lenguaje DML= LENGUAJE DE MANIPULACION DE DATOS
+
+ 	-INSERT
+ 	-UPDATE
+ 	-DELETE
+ 	-SELECT
+
+	=======================================================
+	CREATE para crear una base de datos una tabla
+	==========================================================
+ 	comandos lenguaje SQL
+ 	CREATE USER soporte @localhost IDENTIFIED 'lordxms5580*'; = crea un usuario administrados para la base de datos
+	CREATE DATABASE web_inoffra_db; = crea una base de datos
+
+	creacion de tablas para base de datos
+	CREATE TABLE productos (
+    id_producto INT NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY (id_producto),
+	nombre VARCHAR(150),
+    precio INT
+	);
+
+CREATE TABLE clientes(
+    id_cliente INT NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY (id_cliente),
+    nombre VARCHAR(100),
+    apellido VARCHAR(100),
+    edad INT,
+    telefono INT
+    
+	);
+    
+    CREATE TABLE pedidos(
+    	id_pedido INT NOT NULL AUTO_INCREMENT,
+        PRIMARY KEY (id_pedido),
+        fecha DATE,
+        cantidad INT,
+        id_producto INT,    <=se tiene que crear los campos de las claves primarias
+        id_cliente INT,
+        FOREIGN KEY(id_producto) REFERENCES productos(id_producto)   , <= las claves foraneas se tienes que referencar con la tabla de la primary key
+        FOREIGN KEY(id_cliente) REFERENCES clientes(id_cliente)
+    )
+
+	===========================================================
+	DROP para borrar una base de datos una tabla o una columna
+	=======================================================
+	DROP =>BORRAR
+	DROP DATABASE prueba2 => borra una base de datos
+	DROP TABLE clientes => borra una tabla con el nombre clientes dentro de la base de datos prueba2
+
+	====================================================
+	ALTER para alterar o cambian
+	======================================================
+	ALTER => ALTERA O MODIFICA UNA TABLA O UN campos
+
+	ALTER TABLE clientes RENAME usuarios => cambia el nombre de una tabla clientes por usuarios palabra clave RENAME
+	ALTER TABLE clientes CHANGE telefono celular INT(15) => cambia el nombre de un campo o atributo ejemplo telefono por celular palabra clave CHANGE
+	ALTER TABLE empresas ADD COLUMN(direccion VARCHAR(50)) => agrega columna dereccion en la tabla empresa
+	ALTER TABLE empresas DROP COLUMN direccion => borra columna direccion de la tabla empresas
+	
+	============================================================
+	INSERT para insertar datos en una tablas
+	==============================================================
+	LOAD DATA INFILE 'C:/xampp/tmp/prueba.csv' cargar informacion por medio de csv, se debe guardar el archivo en la carpeta tem
+	INTO TABLE clientes
+	FIELDS TERMINATED BY ';'
+	LINES TERMINATED BY '\n'
+	(nombre, apellido, edad, telefono)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
