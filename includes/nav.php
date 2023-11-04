@@ -3,7 +3,7 @@
 	<nav id="menu">
 		<ul>
 			<li><a href="index.php">Inicio</a></li>
-			<li>ITvalencia</li>
+			
 			<li>Departamentos
 				<ul>
 					<li>Sistema</li>
@@ -31,11 +31,10 @@
 				<ul>
 					<li>Aliquo</li>
 					<li>Lattice</li>
-					<li>Profit-Plus</li>
-					<li>Saa</li>
+					
 				</ul>
 			</li>
-			<li>Aprender</li>
+			<li>Recursos</li>
 			<li><a href="includes/login.php" target="_blanck">Biometrico</a></li>
 			<li><a href="./index.php">Salir</a></li>
 		</ul>

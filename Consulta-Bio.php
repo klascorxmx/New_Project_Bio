@@ -4,6 +4,7 @@ if (empty($_SESSION['id'])) {
 	header("location: includes/login.php");
 }
 
+require 'includes/conexion_MS.php';
 
 ?>
 <!DOCTYPE html>
@@ -20,7 +21,7 @@ if (empty($_SESSION['id'])) {
 	<title>Consulta Biometrico | Empresas Noffra</title>
 </head>
 
-<body id="index">
+<body >
 	<div class="usuario-box">
 
 		<h2>Usuario: <?php echo $_SESSION['nombre'] . " " . $_SESSION['apellido'];  ?> </h2>
@@ -33,48 +34,49 @@ if (empty($_SESSION['id'])) {
 		<?php
 		include "includes/header.php";
 		/**include"includes/slider.php";**/
-		//include "includes/nav.php"; //id="contenedor" id="contenedor"
+		include "includes/nav.php"; //id="contenedor" id="contenedor"
 		//class="consulta-box"
 		?>
 
-		<div >
+	<div>
+		<label for="ID_USER">CONSULTA</label>
+
+		<br />
+		<select name="select">
+			<option value="0">TODOS LOS REGISTROS</option>
 
 
-			<div >
-				<h1>CONSULTA ASISTENCIA DE EMPLEADOS</h1>
-				<br>
-				<div>
-					<select name="select">
-						
-						
-					
-						<option value="value1" >TODOS LOS REGISTROS</option>
-						<?php
-
-							require 'conexion_MS.php';
-
-							$sqlMs = $conexionMs->prepare("select * from YO_NEW_ASISTENCIA;");
-							$sqlMs->execute();
-							$resultadosHoras = $sqlMs->fetchall(PDO::FETCH_ASSOC);
-							while ($resultadosHoras = $sqlMs->fetchall(PDO::FETCH_ASSOC)) {
-								echo '<option value='.$resultadosHoras[0].'>'.$resultadosHoras[1].' - '.$resultadosHoras[3].'</option>';
-							  }
-
-						?>
-						<option value="value2" >EMPLEADOS</option>
-						<option value="value3"></option>
-							
-					</select>
-					
-				</div>
+				<?php
 				
-				<br>
-				<br>
-				<form method="POST" action="includes/fechas_consultas.php">
-					<!-- FECHA DE INICIO DE CONSULTA-->
+				$sqlMs = $conexionMs->prepare("SELECT        B.Userid, B.Name from
+				dbo.Userinfo AS B  order by B.Name");
+				$sqlMs->execute();
+				$resultadosHoras = $sqlMs->fetchAll(PDO::FETCH_ASSOC);
+				
+				foreach ($resultadosHoras as $row) {
+					echo '<option value="'.$row["Userid"].'">'.$row["Userid"].' - '.$row["Name"].'</option>';
+					
+				}	
 
-					<label form="fecha inicio">Desde</label>
-					<input type="datetime-local" name="fecha_inicio">
+			
+				?>
+
+
+
+
+			
+			
+		</select>
+		<br />
+		<br />
+		<br />
+
+
+	</div>
+
+	<div>
+					<label form="fechaDesde">Fecha Desde</label>
+					<input type="datetime-local" name="fechaDesde" id="fecharDesde">
 
 					<br>
 					<br>
@@ -82,8 +84,8 @@ if (empty($_SESSION['id'])) {
 
 					<!-- FECHA DE FIN DE CONSULTA-->
 
-					<label form="fecha fin">Hasta</label>
-					<input type="datetime-local" name="fecha_fin">
+					<label form="fechaHasta">Fecha Hasta</label>
+					<input type="datetime-local" name="fechaHasta" id="fechaHasta">
 
 					<!-- BOTON PARA GENERAR LA CONSULTA-->
 					<br>
@@ -93,15 +95,24 @@ if (empty($_SESSION['id'])) {
 					<br>
 					<br>
 
-					<input id="boton-enviar" , type="submit" name="Consultar">
+					<input id="botonEnviar" , type="submit" name="Consultar">
 
 
 
+	</div>
+	<div>
+		<table>
+			<tbody>
+				<thead>
+					<th>ID Usario</th>
+					<th>Nombre Usuario</th>
+					<th>Entrada y Salidad</th>
+					<th>Empresa</th>
+				</thead>
+			</tbody>
+		</table>
 
-				</form>
-
-			</div>
-		</div>
+	</div>
 
 		<?php
 		//include "includes/footer.php";
